@@ -30,6 +30,6 @@ public static class UmaEntryExtensions
 
     private static int DateToInt(DateOnly input)
     {
-        return int.Parse(input.ToString("yyyyMMDD"));
+        return int.Parse(input.ToString("yyyyMMdd"));
     }
 }

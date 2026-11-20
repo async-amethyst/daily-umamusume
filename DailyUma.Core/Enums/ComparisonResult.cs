@@ -6,3 +6,16 @@ public enum ComparisonResult
     Equal,
     GreaterThan
 }
+
+public static class ComparisonResultExtensions
+{
+    public static string ToReadableString(this ComparisonResult comparisonResult)
+    {
+        return comparisonResult switch
+        {
+            ComparisonResult.LessThan => "^",
+            ComparisonResult.GreaterThan => "v",
+            ComparisonResult.Equal => "="
+        };
+    }
+}

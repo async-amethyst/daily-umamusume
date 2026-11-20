@@ -25,6 +25,6 @@ public static class SeedHelper
     private static int GetSeed()
     {
         DateTime currentDate = DateTime.Now.Date;
-        return int.Parse(currentDate.ToString("yyyyMMDD")); // Convert the current day to an int so that everyone gets the same uma for a seed
+        return int.Parse(currentDate.ToString("yyyyMMdd")); // Convert the current day to an int so that everyone gets the same uma for a seed
     }
 }

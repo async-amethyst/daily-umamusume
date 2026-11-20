@@ -11,5 +11,7 @@ public enum Colors
     Pink,
     Blonde,
     Brown,
-    Black
+    Black,
+    White,
+    Gray
 }
