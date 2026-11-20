@@ -8,27 +8,27 @@ namespace DailyUma.Core.Utilities;
 public static class DataHelper
 {
     private static UmaEntry debugUma1 = new UmaEntry(
-    Name: "Daiichi Ruby",
-    Generation: 1990,
-    Aptitudes: new UmaAptitudes(
-        Turf: Aptitude.A,
-        Dirt: Aptitude.G,
-        Short: Aptitude.A,
-        Mile: Aptitude.A,
-        Medium: Aptitude.C,
-        Long: Aptitude.G,
-        Runner: Aptitude.E,
-        Leader: Aptitude.B,
-        Betweener: Aptitude.A,
-        Chaser: Aptitude.A
-    ),
-    G1Wins: 2,
-    G2Wins: 1,
-    G3Wins: 0,
-    ReleaseDate: new DateOnly(2023, 03, 10),
-    HairColor: Colors.Brown,
-    Gender: Gender.Mare
-);
+        Name: "Daiichi Ruby",
+        Generation: 1990,
+        Aptitudes: new UmaAptitudes(
+            Turf: Aptitude.A,
+            Dirt: Aptitude.G,
+            Short: Aptitude.A,
+            Mile: Aptitude.A,
+            Medium: Aptitude.C,
+            Long: Aptitude.G,
+            Runner: Aptitude.E,
+            Leader: Aptitude.B,
+            Betweener: Aptitude.A,
+            Chaser: Aptitude.A
+        ),
+        G1Wins: 2,
+        G2Wins: 1,
+        G3Wins: 0,
+        ReleaseDate: new DateOnly(2023, 03, 10),
+        HairColor: Colors.Brown,
+        Gender: Gender.Mare
+    );
 
     private static UmaEntry debugUma2 = new UmaEntry(
         Name: "Hishi Miracle",
