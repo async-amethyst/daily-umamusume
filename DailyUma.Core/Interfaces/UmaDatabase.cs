@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DailyUma.Core.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,7 +7,9 @@ namespace DailyUma.Core.Interfaces;
 
 public abstract class UmaDatabase : IUmaDatabase
 {
+    public int selectedUma => _selectedUmaIndex;
     protected List<UmaEntry> _umaDatabase;
+    private int _selectedUmaIndex;
 
     public int GetEntriesCount() => _umaDatabase.Count;
 
@@ -14,6 +17,7 @@ public abstract class UmaDatabase : IUmaDatabase
     public virtual async Task Initialize()
     {
         await LoadJson();
+        _selectedUmaIndex = SeedHelper.GetUmaIndex(Core.Enums.GameMode.Daily);
     }
     public bool TryGetUma(string name, out UmaEntry? uma)
     {

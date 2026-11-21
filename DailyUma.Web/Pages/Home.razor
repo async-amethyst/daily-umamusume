@@ -8,9 +8,19 @@
 <p>Load status: @loadStatus</p>
 Welcome to your new app.
 
+<div class="input-group mb=2" style="max-width: 400px;"> // base class definition
+    <input @bind="userGuess" class="form-control" placeholder="Guess your Uma!" />
+    <button @onclick="CheckGuess" class="btn btn-primary">Submit Guess!</button>
+</div>
+
+<p class="@messageColor">@statusMessage</p>
+
 @code {
     private WebUmaDatabase? _umaDb;
     private string? loadStatus;
+    private string? userGuess;
+    private string? statusMessage;
+    private string? messageColor; // sets color of message just for testing
 
     protected override async Task OnInitializedAsync()
     {
@@ -18,5 +28,17 @@ Welcome to your new app.
         _umaDb = new WebUmaDatabase(Http);
         await _umaDb.Initialize();
         loadStatus = "Successfully loaded data I think??";
+    }
+
+    private void CheckGuess()
+    {
+        if(!_umaDb.TryGetUma(userGuess, out var uma))
+        {
+            statusMessage = "No matching Umamusume found in the database.";
+            messageColor = "text-danger";
+            return;
+        }
+        statusMessage = $"A matching Umamusume was found under the name {userGuess}.";
+        messageColor = "text-success";
     }
 }
