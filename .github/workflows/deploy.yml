@@ -18,7 +18,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x' # Change to 9.0.x or 10.0.x if needed
+          dotnet-version: '10.0.x' # Change to 9.0.x or 10.0.x if needed
 
       - name: Publish Blazor App
         run: dotnet publish DailyUma.Web/DailyUma.Web.csproj -c Release -o release
