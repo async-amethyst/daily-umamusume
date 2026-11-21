@@ -6,8 +6,8 @@ namespace DailyUma.Core.Interfaces;
 
 public interface IUmaDatabase
 {
-    void Initialize();
-    void LoadJson();
+    Task Initialize();
+    Task LoadJson();
     int GetEntriesCount();
     bool TryGetUma(string name, out UmaEntry? uma);
     UmaEntry? TryGetUma(int index);

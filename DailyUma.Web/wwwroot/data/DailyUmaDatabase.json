@@ -1,0 +1,112 @@
+[
+  {
+    "Name": "King Halo",
+    "Generation": 1998,
+    "Aptitudes": {
+      "Turf": "A",
+      "Dirt": "G",
+      "Short": "A",
+      "Mile": "B",
+      "Medium": "B",
+      "Long": "C",
+      "Runner": "G",
+      "Leader": "B",
+      "Betweener": "A",
+      "Chaser": "D"
+    },
+    "G1Wins": 1,
+    "G2Wins": 1,
+    "G3Wins": 2,
+    "ReleaseDate": "2021-02-24",
+    "HairColor": "Brown",
+    "Gender": "Stallion"
+  },
+  {
+    "Name": "Nice Nature",
+    "Generation": 1991,
+    "Aptitudes": {
+      "Turf": "A",
+      "Dirt": "G",
+      "Short": "G",
+      "Mile": "C",
+      "Medium": "A",
+      "Long": "A",
+      "Runner": "F",
+      "Leader": "B",
+      "Betweener": "A",
+      "Chaser": "D"
+    },
+    "G1Wins": 0,
+    "G2Wins": 3,
+    "G3Wins": 1,
+    "ReleaseDate": "2021-02-24",
+    "HairColor": "Red",
+    "Gender": "Stallion"
+  },
+  {
+    "Name": "Matikanefukukitaru",
+    "Generation": 1997,
+    "Aptitudes": {
+      "Turf": "A",
+      "Dirt": "F",
+      "Short": "F",
+      "Mile": "C",
+      "Medium": "A",
+      "Long": "A",
+      "Runner": "G",
+      "Leader": "B",
+      "Betweener": "A",
+      "Chaser": "F"
+    },
+    "G1Wins": 1,
+    "G2Wins": 2,
+    "G3Wins": 0,
+    "ReleaseDate": "2021-02-24",
+    "HairColor": "Orange",
+    "Gender": "Stallion"
+  },
+  {
+    "Name": "Haru Urara",
+    "Generation": 1999,
+    "Aptitudes": {
+      "Turf": "G",
+      "Dirt": "A",
+      "Short": "A",
+      "Mile": "B",
+      "Medium": "G",
+      "Long": "G",
+      "Runner": "G",
+      "Leader": "G",
+      "Betweener": "A",
+      "Chaser": "B"
+    },
+    "G1Wins": 0,
+    "G2Wins": 0,
+    "G3Wins": 0,
+    "ReleaseDate": "2021-02-24",
+    "HairColor": "Pink",
+    "Gender": "Mare"
+  },
+  {
+    "Name": "Sakura Bakushin O",
+    "Generation": 1992,
+    "Aptitudes": {
+      "Turf": "A",
+      "Dirt": "G",
+      "Short": "A",
+      "Mile": "B",
+      "Medium": "G",
+      "Long": "G",
+      "Runner": "A",
+      "Leader": "A",
+      "Betweener": "F",
+      "Chaser": "G"
+    },
+    "G1Wins": 2,
+    "G2Wins": 1,
+    "G3Wins": 2,
+    "ReleaseDate": "2021-02-24",
+    "HairColor": "Brown",
+    "Gender": "Stallion"
+  }
+]

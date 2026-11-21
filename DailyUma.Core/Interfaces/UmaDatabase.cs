@@ -10,10 +10,10 @@ public abstract class UmaDatabase : IUmaDatabase
 
     public int GetEntriesCount() => _umaDatabase.Count;
 
-    public abstract void LoadJson();
-    public virtual void Initialize()
+    public abstract Task LoadJson();
+    public virtual async Task Initialize()
     {
-        LoadJson();
+        await LoadJson();
     }
     public bool TryGetUma(string name, out UmaEntry? uma)
     {
@@ -41,6 +41,5 @@ public abstract class UmaDatabase : IUmaDatabase
 
     protected UmaDatabase()
     {
-        Initialize();
     }
 }

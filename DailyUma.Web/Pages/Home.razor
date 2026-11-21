@@ -1,7 +1,22 @@
 ﻿@page "/"
+@using DailyUma.Web.Data
+@inject HttpClient Http
 
-<PageTitle>Home</PageTitle>
+<PageTitle>DailyUma</PageTitle>
 
-<h1>Hello, world!</h1>
-
+<h1>Welcome to the Daily Uma Guesser!</h1>
+<p>Load status: @loadStatus</p>
 Welcome to your new app.
+
+@code {
+    private WebUmaDatabase? _umaDb;
+    private string? loadStatus;
+
+    protected override async Task OnInitializedAsync()
+    {
+        loadStatus = "Attempting to load the Database....";
+        _umaDb = new WebUmaDatabase(Http);
+        await _umaDb.Initialize();
+        loadStatus = "Successfully loaded data I think??";
+    }
+}
