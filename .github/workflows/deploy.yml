@@ -32,6 +32,12 @@ jobs:
       - name: Copy index.html to 404.html for SPA Routing
         run: cp release/wwwroot/index.html release/wwwroot/404.html
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
