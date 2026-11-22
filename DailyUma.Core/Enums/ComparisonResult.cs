@@ -13,8 +13,8 @@ public static class ComparisonResultExtensions
     {
         return comparisonResult switch
         {
-            ComparisonResult.LessThan => "^",
-            ComparisonResult.GreaterThan => "v",
+            ComparisonResult.LessThan => "▲",
+            ComparisonResult.GreaterThan => "▼",
             ComparisonResult.Equal => "="
         };
     }

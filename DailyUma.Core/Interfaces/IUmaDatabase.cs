@@ -10,5 +10,6 @@ public interface IUmaDatabase
     Task LoadJson();
     int GetEntriesCount();
     bool TryGetUma(string name, out UmaEntry? uma);
+    Task<List<string>> GetUmaNameList();
     UmaEntry? TryGetUma(int index);
 }

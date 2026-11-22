@@ -43,7 +43,8 @@ public abstract class UmaDatabase : IUmaDatabase
         }
     }
 
-    protected UmaDatabase()
+    public async Task<List<string>> GetUmaNameList()
     {
+        return _umaDatabase.Select(x => x.Name).ToList();
     }
 }

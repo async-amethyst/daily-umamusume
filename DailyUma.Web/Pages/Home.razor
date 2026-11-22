@@ -1,4 +1,6 @@
 ﻿@page "/"
+@using DailyUma.Core
+@using DailyUma.Core.Enums
 @using DailyUma.Web.Data
 @inject HttpClient Http
 
@@ -8,10 +10,46 @@
 <p>Load status: @loadStatus</p>
 Welcome to your new app.
 
-<div class="input-group mb=2" style="max-width: 400px;"> // base class definition
-    <input @bind="userGuess" class="form-control" placeholder="Guess your Uma!" />
+<div class="input-group mb=2" style="max-width: 400px;">
+    <input @bind="userGuess" list="name-options" class="form-control" placeholder="Guess your Uma!" />
     <button @onclick="CheckGuess" class="btn btn-primary">Submit Guess!</button>
 </div>
+
+<datalist id="name-options">
+    @foreach(var name in _umaNameList)
+    {
+        <option value="@name"/>
+    }
+</datalist>
+
+@if (_guesses.Any())
+{
+    <table class="table table-bordered text-center mt-4">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Generation</th>
+                <th>G1 Race Wins</th>
+                <th>G2 Race Wins</th>
+                <th>G3 Race Wins</th>
+                <th>Release Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var (guess, comparison)in _guesses.Zip(_guessComparisons)) // I can get a tuple from these with zip and I think that's pretty fucking cool
+            {
+                <tr>
+                    <td>@guess.Name</td>
+                    <td class="@((comparison.Generation == Core.Enums.ComparisonResult.Equal) ? "table-success" : "table-danger")">@guess.Generation (@comparison.Generation.ToReadableString())</td>
+                    <td class ="@((comparison.G1 == Core.Enums.ComparisonResult.Equal) ? "table-success" : "table-danger")">@guess.G1Wins</td>
+                    <td class="@((comparison.G2 == Core.Enums.ComparisonResult.Equal) ? "table-success" : "table-danger")">@guess.G2Wins</td>
+                    <td class="@((comparison.G3 == Core.Enums.ComparisonResult.Equal) ? "table-success" : "table-danger")">@guess.G3Wins</td>
+                    <td class="@((comparison.ReleaseDate == Core.Enums.ComparisonResult.Equal) ? "table-success" : "table-danger")">@guess.ReleaseDate.ToString("MMMM dd yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
 <p class="@messageColor">@statusMessage</p>
 
@@ -21,12 +59,18 @@ Welcome to your new app.
     private string? userGuess;
     private string? statusMessage;
     private string? messageColor; // sets color of message just for testing
+    private UmaEntry? _dailyUma;
+    private List<string> _umaNameList = new List<string>();
+    private List<UmaEntry> _guesses = new List<UmaEntry>();
+    private List<UmaComparison> _guessComparisons = new List<UmaComparison>();
 
     protected override async Task OnInitializedAsync()
     {
         loadStatus = "Attempting to load the Database....";
         _umaDb = new WebUmaDatabase(Http);
         await _umaDb.Initialize();
+        _umaNameList = await _umaDb.GetUmaNameList();
+        _dailyUma = _umaDb.TryGetUma(_umaDb.selectedUma);
         loadStatus = "Successfully loaded data I think??";
     }
 
@@ -38,7 +82,10 @@ Welcome to your new app.
             messageColor = "text-danger";
             return;
         }
+        _guesses.Add(uma);
+        _guessComparisons.Add(uma.CompareTo(_dailyUma));
         statusMessage = $"A matching Umamusume was found under the name {userGuess}.";
         messageColor = "text-success";
+        userGuess = string.Empty;
     }
 }

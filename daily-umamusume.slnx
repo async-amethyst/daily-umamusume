@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="DailyUma.Console/DailyUma.Cli.csproj" Id="ead387e9-f71b-4ab2-901d-7cbcfbefef68" />
   <Project Path="DailyUma.Core/DailyUma.Core.csproj" />
+  <Project Path="DailyUma.Web/DailyUma.Web.csproj" Id="63c51375-2a56-4c46-89ea-289d1324537a" />
 </Solution>
