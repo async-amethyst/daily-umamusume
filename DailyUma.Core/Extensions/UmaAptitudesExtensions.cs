@@ -20,6 +20,84 @@ public static class UmaAptitudesExtensions
         );
     }
 
+    public static string GetSurfaceAptitudeString(this UmaAptitudes input) =>
+        (input.Turf == Aptitude.A && input.Dirt == Aptitude.A) ? "Turf/Dirt" // If Turf&Dirt
+        : input.Turf == Aptitude.A ? "Turf" // Else if just turf
+        : "Dirt"; // Else (must be Dirt)
+
+    public static string GetDistanceAptitudeString(this UmaAptitudes input)
+    {
+        var aptitudes = new[] { (input.Short, "Sprint"), (input.Mile, "Mile"), (input.Medium, "Medium"), (input.Long, "Long") };
+        return FormatAptitudeString(aptitudes);
+    }
+
+    public static string GetStyleAptitudeString(this UmaAptitudes input)
+    {
+        var aptitudes = new[] { (input.Runner, "Front"), (input.Leader, "Pace"), (input.Betweener, "Late"), (input.Chaser, "End") };
+        return FormatAptitudeString(aptitudes);
+    }
+
+    public static string GetSurfaceAptitudeColor(this UmaAptitudes guess, UmaAptitudes answer)
+    {
+        if (guess.GetSurfaceAptitudeString() == answer.GetSurfaceAptitudeString()) return "table-success";
+        string[] guessAptitudes = guess.GetSurfaceAptitudeString().Split("/");
+        string[] answerAptitudes = answer.GetSurfaceAptitudeString().Split("/");
+        bool containsApt = false;
+        foreach(var str in guessAptitudes)
+        {
+            if(answerAptitudes.Contains(str)) { containsApt = true; break; }
+        }
+        if (containsApt)
+        {
+            return "table-warning";
+        }
+        else return "table-danger";
+    }
+
+    public static string GetDistanceAptitudeColor(this UmaAptitudes guess, UmaAptitudes answer)
+    {
+        if (guess.GetDistanceAptitudeString() == answer.GetDistanceAptitudeString()) return "table-success";
+        string[] guessAptitudes = guess.GetDistanceAptitudeString().Split("/");
+        string[] answerAptitudes = answer.GetDistanceAptitudeString().Split("/");
+        bool containsApt = false;
+        foreach (var str in guessAptitudes)
+        {
+            if (answerAptitudes.Contains(str)) { containsApt = true; break; }
+        }
+        if (containsApt)
+        {
+            return "table-warning";
+        }
+        else return "table-danger";
+    }
+
+    public static string GetStyleAptitudeColor(this UmaAptitudes guess, UmaAptitudes answer)
+    {
+        if (guess.GetStyleAptitudeString() == answer.GetStyleAptitudeString()) return "table-success";
+        string[] guessAptitudes = guess.GetStyleAptitudeString().Split("/");
+        string[] answerAptitudes = answer.GetStyleAptitudeString().Split("/");
+        bool containsApt = false;
+        foreach (var str in guessAptitudes)
+        {
+            if (answerAptitudes.Contains(str)) { containsApt = true; break; }
+        }
+        if (containsApt)
+        {
+            return "table-warning";
+        }
+        else return "table-danger";
+    }
+
+    private static string FormatAptitudeString((Aptitude, string)[] input)
+    {
+        List<string> outputList = new List<string>();
+        foreach (var (apt, name) in input)
+        {
+            if (apt == Aptitude.A) outputList.Add(name);
+        }
+        return string.Join('/', outputList);
+    }
+
     private static ComparisonResult Compare(Aptitude input, Aptitude guess) => input.CompareTo(guess) switch
     {
         > 0 => ComparisonResult.LessThan, // Higher Enum - Lesser Rank

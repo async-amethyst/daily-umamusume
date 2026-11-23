@@ -8,11 +8,30 @@
 
 <h1>Welcome to the Daily Uma Guesser!</h1>
 <p>Load status: @loadStatus</p>
-Welcome to your new app.
 
-<div class="input-group mb=2" style="max-width: 400px;">
-    <input @bind="userGuess" list="name-options" class="form-control" placeholder="Guess your Uma!" />
-    <button @onclick="CheckGuess" class="btn btn-primary">Submit Guess!</button>
+<div class="guess-container mb-2" style="max-width: 400px;">
+    <div class="input-group">
+        <input @bind="userGuess"
+            @bind:event="oninput"
+            @onfocus="() => showDropdown = true"
+            @onblur="HideDropdownDelayed"
+            disabled="@inputDisabled"
+            class="form-control"
+            placeholder="Guess your Uma!" />
+        <button @onclick="CheckGuess" class="btn btn-primary">Submit Guess!</button>
+    </div>
+
+    @if (showDropdown && _umaNameListFiltered.Any())
+    {
+        <ul class="guess-dropdown">
+            @foreach (var uma in _umaNameListFiltered)
+            {
+                <li @onmousedown="() => SelectUma(uma)">
+                    @uma
+                </li>
+            }
+        </ul>
+    }
 </div>
 
 <datalist id="name-options">
@@ -24,11 +43,17 @@ Welcome to your new app.
 
 @if (_guesses.Any())
 {
-    <table class="table table-bordered text-center mt-4">
+    <table class="table table-bordered text-center align-middle mt-4">
         <thead>
             <tr>
+                <th></th>
                 <th>Name</th>
+                <th>Gender</th>
+                <th>Hair Color</th>
                 <th>Generation</th>
+                <th>Surface Aptitude</th>
+                <th>Distance Aptitude</th>
+                <th>Running Style</th>
                 <th>G1 Race Wins</th>
                 <th>G2 Race Wins</th>
                 <th>G3 Race Wins</th>
@@ -39,12 +64,18 @@ Welcome to your new app.
             @foreach (var (guess, comparison)in _guesses.Zip(_guessComparisons)) // I can get a tuple from these with zip and I think that's pretty fucking cool
             {
                 <tr>
+                    <td><img src="@guess.GetImgSpritePath()" alt="@guess.Name" style="width: 50px; height: 50px;" /></td>
                     <td>@guess.Name</td>
-                    <td class="@((comparison.Generation == Core.Enums.ComparisonResult.Equal) ? "table-success" : "table-danger")">@guess.Generation (@comparison.Generation.ToReadableString())</td>
-                    <td class ="@((comparison.G1 == Core.Enums.ComparisonResult.Equal) ? "table-success" : "table-danger")">@guess.G1Wins</td>
-                    <td class="@((comparison.G2 == Core.Enums.ComparisonResult.Equal) ? "table-success" : "table-danger")">@guess.G2Wins</td>
-                    <td class="@((comparison.G3 == Core.Enums.ComparisonResult.Equal) ? "table-success" : "table-danger")">@guess.G3Wins</td>
-                    <td class="@((comparison.ReleaseDate == Core.Enums.ComparisonResult.Equal) ? "table-success" : "table-danger")">@guess.ReleaseDate.ToString("MMMM dd yyyy")</td>
+                    <td class="@(comparison.Gender ? "table-success" : "table-danger")">@guess.GenderToString()</td>
+                    <td class="@(comparison.HairColor ? "table-success" : "table-danger")">@guess.HairColorToString()</td>
+                    <td class="@((comparison.Generation == Core.Enums.ComparisonResult.Equal) ? "table-success" : "table-danger")">@guess.Generation (@((MarkupString)comparison.Generation.ToReadableString()))</td>
+                    <td class="@guess.Aptitudes.GetSurfaceAptitudeColor(_dailyUma.Aptitudes)">@guess.Aptitudes.GetSurfaceAptitudeString()</td>
+                    <td class="@guess.Aptitudes.GetDistanceAptitudeColor(_dailyUma.Aptitudes)">@guess.Aptitudes.GetDistanceAptitudeString()</td>
+                    <td class="@guess.Aptitudes.GetStyleAptitudeColor(_dailyUma.Aptitudes)">@guess.Aptitudes.GetStyleAptitudeString()</td>
+                    <td class="@((comparison.G1 == Core.Enums.ComparisonResult.Equal) ? "table-success" : "table-danger")">@guess.G1Wins (@((MarkupString)comparison.G1.ToReadableString()))</td>
+                    <td class="@((comparison.G2 == Core.Enums.ComparisonResult.Equal) ? "table-success" : "table-danger")">@guess.G2Wins (@((MarkupString)comparison.G2.ToReadableString()))</td>
+                    <td class="@((comparison.G3 == Core.Enums.ComparisonResult.Equal) ? "table-success" : "table-danger")">@guess.G3Wins (@((MarkupString)comparison.G3.ToReadableString()))</td>
+                    <td class="@((comparison.ReleaseDate == Core.Enums.ComparisonResult.Equal) ? "table-success" : "table-danger")">@guess.ReleaseDate.ToString("MMMM dd yyyy") (@((MarkupString)comparison.ReleaseDate.ToReadableString()))</td>
                 </tr>
             }
         </tbody>
@@ -59,6 +90,10 @@ Welcome to your new app.
     private string? userGuess;
     private string? statusMessage;
     private string? messageColor; // sets color of message just for testing
+    private bool showDropdown = false;
+    private bool inputDisabled = false;
+    private int guessCount = 0;
+    private const int GUESS_COUNT_MAX = 5;
     private UmaEntry? _dailyUma;
     private List<string> _umaNameList = new List<string>();
     private List<UmaEntry> _guesses = new List<UmaEntry>();
@@ -84,8 +119,38 @@ Welcome to your new app.
         }
         _guesses.Add(uma);
         _guessComparisons.Add(uma.CompareTo(_dailyUma));
-        statusMessage = $"A matching Umamusume was found under the name {userGuess}.";
-        messageColor = "text-success";
+        if(uma == _dailyUma)
+        {
+            statusMessage = $"Congrats! The daily umamusume was: {uma.Name}";
+            messageColor = "table-success";
+            inputDisabled = true;
+            userGuess = string.Empty;
+            return;
+        }
+        guessCount++;
+        if(guessCount >= GUESS_COUNT_MAX)
+        {
+            statusMessage = $"Sorry, you ran out of guesses! The daily umamusume was: {_dailyUma.Name}";
+            messageColor = "table-danger";
+            inputDisabled = true;
+        }
         userGuess = string.Empty;
+    }
+
+    private IEnumerable<string> _umaNameListFiltered =>
+        string.IsNullOrWhiteSpace(userGuess) // if the guess is empty, show just the name list. otherwise, filter by what they've typed
+            ? _umaNameList
+            : _umaNameList.Where(name => name.Contains(userGuess, StringComparison.OrdinalIgnoreCase)); // ignore upper/lower case
+
+    private void SelectUma(string uma) // when user selects uma from dropdown
+    {
+        userGuess = uma;
+        showDropdown = false;
+    }
+
+    private async Task HideDropdownDelayed()
+    {
+        await Task.Delay(150);
+        showDropdown = false;
     }
 }

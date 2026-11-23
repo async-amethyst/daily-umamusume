@@ -15,7 +15,7 @@ public static class ComparisonResultExtensions
         {
             ComparisonResult.LessThan => "▲",
             ComparisonResult.GreaterThan => "▼",
-            ComparisonResult.Equal => "="
+            ComparisonResult.Equal => "<b>=</b>"
         };
     }
 }

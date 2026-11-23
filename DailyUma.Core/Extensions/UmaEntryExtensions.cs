@@ -21,6 +21,22 @@ public static class UmaEntryExtensions
         );
     }
 
+    public static string GetImgSpritePath(this UmaEntry uma)
+    {
+        return "/img/uma/" + new string(uma.Name.Where(c => !char.IsWhiteSpace(c)).ToArray()).ToLower() + ".png";
+    }
+
+    public static string GenderToString(this UmaEntry uma)
+    {
+        if (uma.Gender == Gender.Mare) return "Mare";
+        else return "Stallion";
+    }
+
+    public static string HairColorToString(this UmaEntry uma)
+    {
+        return uma.HairColor.ToString();
+    }
+
     private static ComparisonResult Compare(int input, int answer) => input.CompareTo(answer) switch
     {
         > 0 => ComparisonResult.GreaterThan,

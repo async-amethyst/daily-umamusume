@@ -1,11 +1,14 @@
 ﻿@inherits LayoutComponentBase
 <div class="page">
-    <div class="sidebar">
+    <div class="sidebar @(_isSidebarHidden ? "hidden" : "")">
         <NavMenu />
     </div>
 
     <main>
         <div class="top-row px-4">
+            <button class="btn btn-outline-secondary btn-sm me-auto" @onclick="ToggleSidebar">
+                @(_isSidebarHidden ? "Show Sidebar" : "Hide Sidebar")
+            </button>
             <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
         </div>
 
@@ -14,3 +17,8 @@
         </article>
     </main>
 </div>
+
+@code {
+    private bool _isSidebarHidden;
+    private void ToggleSidebar() => _isSidebarHidden = !_isSidebarHidden;
+}
