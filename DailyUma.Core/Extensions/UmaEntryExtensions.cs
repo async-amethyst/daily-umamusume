@@ -23,7 +23,7 @@ public static class UmaEntryExtensions
 
     public static string GetImgSpritePath(this UmaEntry uma)
     {
-        return "/img/uma/" + new string(uma.Name.Where(c => !char.IsWhiteSpace(c)).ToArray()).ToLower() + ".png";
+        return "img/uma/" + new string(uma.Name.Where(c => !char.IsWhiteSpace(c)).ToArray()).ToLower() + ".png";
     }
 
     public static string GenderToString(this UmaEntry uma)
