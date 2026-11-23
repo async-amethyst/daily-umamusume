@@ -21,7 +21,7 @@ public static class UmaAptitudesExtensions
     }
 
     public static string GetSurfaceAptitudeString(this UmaAptitudes input) =>
-        (input.Turf == Aptitude.A && input.Dirt == Aptitude.A) ? "Turf/Dirt" // If Turf&Dirt
+        (input.Turf >= Aptitude.B && input.Dirt >= Aptitude.B) ? "Turf/Dirt" // If Turf&Dirt
         : input.Turf == Aptitude.A ? "Turf" // Else if just turf
         : "Dirt"; // Else (must be Dirt)
 
