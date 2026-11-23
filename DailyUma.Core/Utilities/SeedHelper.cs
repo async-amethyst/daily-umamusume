@@ -5,9 +5,9 @@ using System.Text;
 
 namespace DailyUma.Core.Utilities;
 
-public static class SeedHelper
+public class SeedHelper
 {
-    public static int GetUmaIndex(GameMode mode)
+    public int GetUmaIndex(GameMode mode, List<UmaEntry> database)
     {
         Random r;
         if(mode == GameMode.Daily)
@@ -18,11 +18,11 @@ public static class SeedHelper
         {
             r = new Random();
         }
-        int umaIndex = r.Next(0, DataHelper.GetEntryListCount());
+        int umaIndex = r.Next(0, database.Count());
         return umaIndex;
     }
 
-    private static int GetSeed()
+    private int GetSeed()
     {
         DateTime currentDate = DateTime.Now.Date;
         return int.Parse(currentDate.ToString("yyyyMMdd")); // Convert the current day to an int so that everyone gets the same uma for a seed

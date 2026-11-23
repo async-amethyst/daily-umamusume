@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DailyUma.Core.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,4 +13,5 @@ public interface IUmaDatabase
     bool TryGetUma(string name, out UmaEntry? uma);
     Task<List<string>> GetUmaNameList();
     UmaEntry? TryGetUma(int index);
+    Task InitializeSeed(GameMode mode);
 }
