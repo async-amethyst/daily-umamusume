@@ -9,15 +9,33 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Aldrich&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: "Noto Sans", sans-serif;
+            --bs-body-bg: transparent;
+            background-color: transparent;
+        }
+
+        body::before {
+            content:"";
+            position: fixed;
+            inset: -20px;
+            z-index: 0;
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.55), rgba(0,0,0,0.55)),
+                url("img/bg/debug_bg.png") !important;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            filter: blur(8px);
         }
     </style>
 </head>
 
-<h1>Welcome to the Daily Uma Guesser!</h1>
-<p>Load status: @loadStatus</p>
+<h1 class="header">UMADAILY!</h1>
+<p style="text-align: center;"><i>Guess the daily Uma by their characteristics.</i></p>
 
 <div class="guess-container mb-2" style="max-width: 400px;">
     <div class="input-group">
@@ -27,13 +45,14 @@
             @onblur="HideDropdownDelayed"
             disabled="@inputDisabled"
             class="form-control"
+            style="color:white !important"
             placeholder="Guess your Uma!" />
-        <button @onclick="CheckGuess" class="btn btn-primary">Submit Guess!</button>
+        <button @onclick="CheckGuess" class="btn btn-primary glass">Submit Guess!</button>
     </div>
 
     @if (showDropdown && _umaNameListFiltered.Any())
     {
-        <ul class="guess-dropdown">
+        <ul class="guess-dropdown glass">
             @foreach (var uma in _umaNameListFiltered)
             {
                 <li @onmousedown="() => SelectUma(uma)">
@@ -53,7 +72,7 @@
 
 @if (_guesses.Any())
 {
-    <table class="table table-bordered guess-table text-center align-middle mt-4">
+    <table class="table table-bordered guess-table text-center align-middle mt-4 glass">
         <thead>
             <tr>
                 <th></th>

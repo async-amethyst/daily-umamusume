@@ -1,4 +1,11 @@
-﻿body {
+﻿body, html {
+    min-height: 100%;
+    margin: 0;
+    --bs-body-bg: transparent;
+    background-color: transparent;
+
+    background-image:
+        url("img/bg/debug_bg.png") !important;
 }
 
 @keyframes fadeIn {
@@ -12,9 +19,70 @@
     }
 }
 
+.header {
+    font-size: 88px;
+    font-family: "Aldrich", sans-serif;
+    text-align: center;
+}
+
+.start-button {
+    margin-top: 80px;
+    padding: 16px 32px;
+    font-size: 22px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 1);
+}
+
+.glass {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* safari compatibility */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    --bs-table-color: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+    --bs-table-bg: transparent;
+    --bs-table-striped-bg: rgba(255, 255, 255, 0.05);
+    --bs-table-hover-bg: rgba(255, 255, 255, 0.05);
+}
+
+.glass .input-group {
+    color: #ffffff;
+}
+
+.glass .table-success {
+    --bs-table-bg: rgba(25, 135, 84, 0.25);
+    --bs-table-color: #ffffff;
+    --bs-table-border-color: rgba(25, 135, 84, 0.4)
+}
+
+.glass .table-danger {
+    --bs-table-bg: rgba(220, 53, 69, 0.25);
+    --bs-table-color: #ffffff;
+    --bs-table-border-color: rgba(220, 53, 69, 0.4)
+}
+
+.glass .table-warning {
+    --bs-table-bg: rgba(255, 193, 7, 0.25);
+    --bs-table-color: #ffffff;
+    --bs-table-border-color: rgba(255, 193, 7, 0.4)
+}
+
 .guess-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    height: 100%;
     position: relative;
-    width: 100%;
+    text-align: center;
+    width: 100% !important;
+    margin: 30px auto 8px;
+}
+
+.guess-container .input-group {
+    width: auto !important;
+    max-width: 400px !important;
 }
 
 .guess-dropdown {
@@ -27,10 +95,11 @@
     margin: 4px 0 0 0;
     padding: 4px 0;
     list-style: none;
-    background-color: #ffffff;
+    /*background-color: #ffffff;
     border: 1px solid #dee2e6;
     border-radius: 8px;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);*/
+    color: #ffffff;
 }
 
 .guess-dropdown li {
@@ -45,5 +114,9 @@
 
 .guess-table td {
     animation: fadeIn 0.4s ease-out forwards;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.5)
 }
 
