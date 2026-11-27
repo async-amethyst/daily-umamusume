@@ -46,7 +46,9 @@ public abstract class UmaDatabase : IUmaDatabase
 
     public async Task<List<string>> GetUmaNameList()
     {
-        return _umaDatabase.Select(x => x.Name).ToList();
+        List<string> nameList = _umaDatabase.Select(x => x.Name).ToList();
+        nameList.Sort();
+        return nameList;
     }
     public async Task InitializeSeed(GameMode mode)
     {

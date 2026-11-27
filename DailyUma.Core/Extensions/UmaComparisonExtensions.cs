@@ -14,7 +14,7 @@ public static class UmaComparisonExtensions
             $"G1 wins: {lookup.G1Wins} ({comparison.G1.ToReadableString()})\n" +
             $"G2 wins: {lookup.G2Wins} ({comparison.G2.ToReadableString()})\n" +
             $"G3 wins: {lookup.G3Wins} ({comparison.G3.ToReadableString()})\n" +
-            $"Release Date: {lookup.ReleaseDate.ToLongDateString()} ({comparison.ReleaseDate.ToReadableString()})");
+            $"Release Date: {((DateOnly)(lookup.ReleaseDate)).ToLongDateString()} ({comparison.ReleaseDate.ToReadableString()})");
         // todo - print and compare aptitudes
     }
 }

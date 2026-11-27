@@ -15,7 +15,7 @@ public static class UmaEntryExtensions
             G1: Compare(answer.G1Wins, guess.G1Wins),
             G2: Compare(answer.G2Wins, guess.G2Wins),
             G3: Compare(answer.G3Wins, guess.G3Wins),
-            ReleaseDate: Compare(DateToInt(answer.ReleaseDate), DateToInt(guess.ReleaseDate)),
+            ReleaseDate: Compare(DateToInt(((DateOnly)(answer.ReleaseDate))), DateToInt(((DateOnly)(guess.ReleaseDate)))),
             HairColor: answer.HairColor == guess.HairColor,
             Gender: answer.Gender == guess.Gender
         );
@@ -37,7 +37,7 @@ public static class UmaEntryExtensions
         return uma.HairColor.ToString();
     }
 
-    private static ComparisonResult Compare(int input, int answer) => input.CompareTo(answer) switch
+    private static ComparisonResult Compare(int? input, int? answer) => ((int)input).CompareTo(answer) switch
     {
         > 0 => ComparisonResult.GreaterThan,
         < 0 => ComparisonResult.LessThan,

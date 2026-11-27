@@ -4,7 +4,7 @@ namespace DailyUma.Core; // put in base namespace so that we don't need to "use"
 
 public static class UmaAptitudesExtensions
 {
-    public static UmaAptitudeComparison CompareTo(this UmaAptitudes input,  UmaAptitudes guess) // Set up as extension method so that I can just do Aptitude.CompareTo(Guess)
+    public static UmaAptitudeComparison CompareTo(this UmaAptitudes? input,  UmaAptitudes? guess) // Set up as extension method so that I can just do Aptitude.CompareTo(Guess)
     {
         return new UmaAptitudeComparison(
             Turf: Compare(input.Turf, guess.Turf),
@@ -86,6 +86,22 @@ public static class UmaAptitudesExtensions
             return "table-warning";
         }
         else return "table-danger";
+    }
+
+    public static string GetRaceWinsString(this UmaAptitudes guess, (int, int, int) raceWins, (ComparisonResult, ComparisonResult, ComparisonResult) comparisons)
+    {
+        return new string($"G1: {raceWins.Item1} ({comparisons.Item1.ToReadableString()})\n" +
+            $"G2: {raceWins.Item2} ({comparisons.Item2.ToReadableString()})\n" +
+            $"G3: {raceWins.Item3} ({comparisons.Item3.ToReadableString()})");
+    }
+
+    public static string GetRaceWinsColor(this UmaAptitudes guess, (ComparisonResult, ComparisonResult, ComparisonResult) comparisons)
+    {
+        if (comparisons.Item1 == ComparisonResult.Equal && comparisons.Item2 == ComparisonResult.Equal &&
+            comparisons.Item3 == ComparisonResult.Equal) return "table-success";
+        else if (comparisons.Item1 != ComparisonResult.Equal && comparisons.Item2 != ComparisonResult.Equal &&
+            comparisons.Item3 != ComparisonResult.Equal) return "table-danger";
+        else return "table-warning";
     }
 
     private static string FormatAptitudeString((Aptitude, string)[] input)

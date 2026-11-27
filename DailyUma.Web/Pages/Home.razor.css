@@ -20,7 +20,7 @@
 }
 
 .header {
-    font-size: 88px;
+    font-size: clamp(2.5rem, 6vw, 5.5rem); /* scale down for mobile compatibility */
     font-family: "Aldrich", sans-serif;
     text-align: center;
 }
@@ -38,7 +38,7 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); /* safari compatibility */
     border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 12px;
+    /*border-radius: 12px;*/
     --bs-table-color: #ffffff;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 
@@ -78,6 +78,7 @@
     text-align: center;
     width: 100% !important;
     margin: 30px auto 8px;
+    border-radius: 0px !important;
 }
 
 .guess-container .input-group {
@@ -114,6 +115,11 @@
 
 .guess-table td {
     animation: fadeIn 0.4s ease-out forwards;
+    font-size: clamp(0.75rem, 2vw, 1.125rem);
+}
+
+.race-guess {
+    white-space: pre;
 }
 
 input::placeholder {
