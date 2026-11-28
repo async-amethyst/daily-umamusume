@@ -6,7 +6,7 @@ namespace DailyUma.Web.Data;
 
 public class WebUmaDatabase : UmaDatabase
 {
-    private readonly DateTime UPDATE_DATE = new DateTime(2026, 11, 27);
+    private readonly DateTime UPDATE_DATE = new DateTime(2026, 11, 28);
     private readonly HttpClient _http;
     public WebUmaDatabase(HttpClient http)
     {
